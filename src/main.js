@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
 
   const $ = require('jquery')
-  const Plugin = require('extplug/Module')
+  const Plugin = require('extplug/Plugin')
   const chatFacade = require('plug/facades/chatFacade')
   const { before } = require('meld')
 
