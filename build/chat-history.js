@@ -1,9 +1,9 @@
 
 
-define('extplug/chat-history/main',['require','exports','module','jquery','extplug/Module','plug/facades/chatFacade','meld'],function (require, exports, module) {
+define('extplug/chat-history/main',['require','exports','module','jquery','extplug/Plugin','plug/facades/chatFacade','meld'],function (require, exports, module) {
 
   var $ = require('jquery');
-  var Plugin = require('extplug/Module');
+  var Plugin = require('extplug/Plugin');
   var chatFacade = require('plug/facades/chatFacade');
 
   var _require = require('meld');
