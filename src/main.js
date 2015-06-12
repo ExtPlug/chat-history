@@ -3,6 +3,7 @@ define(function (require, exports, module) {
   const $ = require('jquery')
   const Plugin = require('extplug/Plugin')
   const chatFacade = require('plug/facades/chatFacade')
+  const Events = require('plug/core/Events')
   const { before } = require('meld')
 
   const UP = 38
@@ -32,11 +33,23 @@ define(function (require, exports, module) {
         this.index = this.history.length
         this.current = ''
       })
+      Events.on('chat:afterreceive', this.plugCubedCompat, this)
     },
     disable() {
       this._super()
       this.$field.off('keydown', this.onKeyDown)
       this.advice.remove()
+      Events.off('chat:afterreceive', this.plugCubedCompat)
+    },
+
+    // clear plugCubed's chat history list if available,
+    // to prevent collisions
+    plugCubedCompat() {
+      if (window.plugCubedUserData &&
+          window.plugCubedUserData[-1] &&
+          window.plugCubedUserData[-1].latestInputs) {
+        window.plugCubedUserData[-1].latestInputs = []
+      }
     },
 
     onKeyDown(e) {
