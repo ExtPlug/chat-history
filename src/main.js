@@ -21,8 +21,8 @@ define(function (require, exports, module) {
     },
     enable() {
       this._super()
-      this.history = []
-      this.index = 0
+      this.history = this.settings.get('history') || []
+      this.index = this.history.length
       this.current = ''
       this.$field = $('#chat-input-field').on('keydown', this.onKeyDown)
       this.advice = before(chatFacade, 'sendChat', msg => {
@@ -30,6 +30,8 @@ define(function (require, exports, module) {
         if (this.history.length > HISTORY_MAX) {
           this.history.shift()
         }
+        // set it to a clone so Backbone triggers change events
+        this.settings.set('history', this.history.slice())
         this.index = this.history.length
         this.current = ''
       })
