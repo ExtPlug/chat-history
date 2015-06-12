@@ -27,8 +27,8 @@ define('extplug/chat-history/main',['require','exports','module','jquery','extpl
       var _this = this;
 
       this._super();
-      this.history = [];
-      this.index = 0;
+      this.history = this.settings.get('history') || [];
+      this.index = this.history.length;
       this.current = '';
       this.$field = $('#chat-input-field').on('keydown', this.onKeyDown);
       this.advice = before(chatFacade, 'sendChat', function (msg) {
@@ -36,6 +36,8 @@ define('extplug/chat-history/main',['require','exports','module','jquery','extpl
         if (_this.history.length > HISTORY_MAX) {
           _this.history.shift();
         }
+        // set it to a clone so Backbone triggers change events
+        _this.settings.set('history', _this.history.slice());
         _this.index = _this.history.length;
         _this.current = '';
       });
