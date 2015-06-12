@@ -1,10 +1,11 @@
 
 
-define('extplug/chat-history/main',['require','exports','module','jquery','extplug/Plugin','plug/facades/chatFacade','meld'],function (require, exports, module) {
+define('extplug/chat-history/main',['require','exports','module','jquery','extplug/Plugin','plug/facades/chatFacade','plug/core/Events','meld'],function (require, exports, module) {
 
   var $ = require('jquery');
   var Plugin = require('extplug/Plugin');
   var chatFacade = require('plug/facades/chatFacade');
+  var Events = require('plug/core/Events');
 
   var _require = require('meld');
 
@@ -38,11 +39,21 @@ define('extplug/chat-history/main',['require','exports','module','jquery','extpl
         _this.index = _this.history.length;
         _this.current = '';
       });
+      Events.on('chat:afterreceive', this.plugCubedCompat, this);
     },
     disable: function disable() {
       this._super();
       this.$field.off('keydown', this.onKeyDown);
       this.advice.remove();
+      Events.off('chat:afterreceive', this.plugCubedCompat);
+    },
+
+    // clear plugCubed's chat history list if available,
+    // to prevent collisions
+    plugCubedCompat: function plugCubedCompat() {
+      if (window.plugCubedUserData && window.plugCubedUserData[-1] && window.plugCubedUserData[-1].latestInputs) {
+        window.plugCubedUserData[-1].latestInputs = [];
+      }
     },
 
     onKeyDown: function onKeyDown(e) {
