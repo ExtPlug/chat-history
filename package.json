@@ -1,11 +1,17 @@
-{ "name": "extplug-chat-history"
-, "version": "0.1.0"
-, "description": "ExtPlug plugin that adds shell-style history (up+down keys) to the chat."
-, "devDependencies":
-  { "gulp": "^3.8.11"
-  , "gulp-babel": "^5.1.0"
-  , "gulp-concat": "^2.5.2"
-  , "requirejs": "^2.1.17" }
-, "scripts":
-  { "build": "gulp build"
-  , "test": "jshint src" } }
+{
+  "name": "extplug-chat-history",
+  "version": "0.1.0",
+  "description": "ExtPlug plugin that adds shell-style history (up+down keys) to the chat.",
+  "license": "MIT",
+  "main": "build/chat-history",
+  "keywords": [
+    "extplugin",
+    "plug.dj"
+  ],
+  "devDependencies": {
+    "extplug-cli": "^1.0.0"
+  },
+  "scripts": {
+    "build": "extplug bundle src/main.js build/chat-history.js"
+  }
+}
