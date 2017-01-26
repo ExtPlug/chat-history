@@ -1,6 +1,8 @@
 Chat History
 ============
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/extplug/chat-history.svg)](https://greenkeeper.io/)
+
 ExtPlug plugin that remembers your sent messages. Use the up and down arrow keys
 in the chat box to cycle through your previous messages. (Shell style!)
 
